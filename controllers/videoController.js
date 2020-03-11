@@ -1,19 +1,19 @@
 export const search = (req, res) => {
-    res.send("search");
+    res.render("search");
 };
 
 export const upload =(req, res) => {
-    res.send("upload");
+    res.render("upload");
 };
 
 export const detail = (req, res) => {
-    res.send("detail");
+    res.render("videoDetail");
 };
 
 export const editVideo = (req, res) => {
-    res.send("edit");
+    res.render("videoEdit");
 };
 
 export const deleteVideo = (req, res) => {
-    res.send("delete");
+    res.render("videoDelete");
 };

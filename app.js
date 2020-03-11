@@ -10,6 +10,9 @@ import routes from "./routes";
 
 const app = express();
 
+// view engine
+app.set("view engine", "pug");
+
 // middlewares
 app.use(helmet());
 

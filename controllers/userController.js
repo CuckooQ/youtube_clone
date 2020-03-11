@@ -1,12 +1,12 @@
 export const detail = (req, res) => {
-    res.send("detail");
+    res.render("userDetail");
  };
 
 export const editProfile = (req, res) => {
-    res.send("edit-profile");
+    res.render("editProfile");
  };
 
 export const changePassword = (req, res) => {
-    res.send("change-password");
+    res.render("changePassword");
  };
  
