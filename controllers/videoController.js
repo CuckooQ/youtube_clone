@@ -1,5 +1,10 @@
 export const search = (req, res) => {
-    res.render("search", {pageTitle: "Search"});
+    const {
+        query: {
+            searchText
+        }   
+    } = req;
+    res.render("search", {pageTitle: "Search", searchText});
 };
 
 export const upload =(req, res) => {

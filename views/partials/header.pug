@@ -2,6 +2,9 @@ header.header
     div.header__column
         i.fab.fa-youtube
     div.header__column
+        form(action=routes.videos + routes.search, method="get")
+            input(type="text", placeholder="Type the text.", name="searchText")
+    div.header__column
         ul
             li
                 a(href=routes.join) Join
