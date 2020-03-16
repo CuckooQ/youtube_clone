@@ -2,7 +2,7 @@ extends layouts/main
 
 block content
     div.form__container
-        form(action=routes.login, method="post")
+        form(action=routes.join, method="post")
             input(type="email", name="email", placeholder="Email")
             input(tpe="password", name="password", placeholder="Password")
             input(tpe="password", name="confirmPassword", placeholder="Password Confirm")
