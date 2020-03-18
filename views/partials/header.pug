@@ -6,7 +6,15 @@ header.header
             input(type="text", placeholder="Type the text.", name="searchText")
     div.header__column
         ul
-            li
-                a(href=routes.join) Join
-            li
-                a(href=routes.login) Login
+            if !user.isAuthenticated
+                li
+                    a(href=routes.join) Join
+                li
+                    a(href=routes.login) Login
+            else
+                li 
+                    a(href=routes.videos+routes.upload) Upload
+                li
+                    a(href=routes.users+routes.detail(user.id)) Profile
+                li 
+                    a(href=routes.logout) Logout

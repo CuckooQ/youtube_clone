@@ -1,4 +1,7 @@
 export const detail = (req, res) => {
+    const {
+        params: {id}
+    } = req;
     res.render("userDetail", {pageTitle: "User Detail"});
  };
 

@@ -1,6 +1,6 @@
 export const videos = [
     {
-        id: 1,
+        id: 0,
         title: "Video Awsome",
         description: "This is something I love",
         views: 10,
