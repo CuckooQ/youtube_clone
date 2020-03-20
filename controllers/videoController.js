@@ -1,5 +1,5 @@
 import routes from "../routes";
-import {videos} from "../db";
+import Video from "../models/Video";
 
 export const search = (req, res) => {
     const {
