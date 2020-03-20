@@ -9,8 +9,7 @@ export const home =  async (req, res) => {
         tmpVideos.forEach((video)=>{
             videos.push(video);
         });
-    }
-    catch(e){
+    } catch(e){
         console.log(e);
     }
 
@@ -21,7 +20,9 @@ export const home =  async (req, res) => {
 };
 
 export const getJoin = (req, res) => {
-    res.render("join", {pageTitle: "Join"});
+    res.render("join", {
+        pageTitle: "Join",
+    });
 };
 
 export const postJoin = (req, res) => {
@@ -36,7 +37,9 @@ export const postJoin = (req, res) => {
 
     if(password !== confirmPassword){
         res.status=400;
-        res.render("join", {pageTitle: "Join"});
+        res.render("join", {
+            pageTitle: "Join",
+        });
     }else{
         // TODO Register User
         // TODO Login
@@ -45,7 +48,9 @@ export const postJoin = (req, res) => {
 };
 
 export const getLogin = (req, res) => {
-    res.render("login", {pageTitle: "Login"});
+    res.render("login", {
+        pageTitle: "Login",
+    });
 };
 
 export const postLogin = (req, res) => {

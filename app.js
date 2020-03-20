@@ -1,13 +1,16 @@
 import express from "express";
-import helmet from "helmet";
-import cookieParser from "cookie-parser";
-import bodyParser, { urlencoded } from "body-parser";
-import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import routes from "./routes";
-import {localMiddleware} from "./middlewares";
+import {
+    localMiddleware, 
+    helmetMiddleware,
+    cookieParserMiddleware,
+    bodyParserMiddleware,
+    bodyParserUrlEncodeMiddleware,
+    morganMiddleware, 
+} from "./middlewares";
 
 const app = express();
 
@@ -15,15 +18,11 @@ const app = express();
 app.set("view engine", "pug");
 
 // middlewares
-app.use(helmet());
-
-app.use(cookieParser());
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(morgan("dev"));
-
+app.use(helmetMiddleware);
+app.use(cookieParserMiddleware);
+app.use(bodyParserMiddleware);
+app.use(bodyParserUrlEncodeMiddleware);
+app.use(morganMiddleware);
 app.use(localMiddleware);
 
 // routing
