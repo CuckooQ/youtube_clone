@@ -2,7 +2,18 @@ import Video from "../models/Video";
 import routes from "../routes";
 
 export const home =  async (req, res) => {
-    const videos = await Video.find({});
+    let videos = [];
+
+    try{
+        const tmpVideos = await Video.find({});
+        tmpVideos.forEach((video)=>{
+            videos.push(video);
+        });
+    }
+    catch(e){
+        console.log(e);
+    }
+
     res.render("home", {
         pageTitle: "Home", 
         videos,
