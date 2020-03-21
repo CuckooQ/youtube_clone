@@ -41,7 +41,7 @@ export const postUpload = async (req, res) => {
         
         res.redirect(routes.videos+routes.detail(newVideo.id));
     } catch (e){
-        // TODO Disavailable Create VIdeo Dialog
+        // TODO Create Error Dialog
         res.redirect(routes.home);
     }
 }
@@ -66,10 +66,44 @@ export const detail = async (req, res) => {
     }
 };
 
-export const editVideo = (req, res) => {
-    res.render("videoEdit", {
-        pageTitle: "Video Edit",
-    });
+export const getEditVideo = async (req, res) => {
+    const {
+        params: {
+            id,
+        },
+    } = req;
+
+    try{
+        const video = await Video.findById(id);
+        
+        res.render("videoEdit", {
+            pageTitle: "Video Edit",
+            video,
+        });
+    } catch (e) {
+        res.redirect(routes.videos + routes.detail(id));
+    }
+};
+
+export const postEditVideo = async (req, res) => {
+    const {
+        params: {
+            id,
+        },
+        body: {
+            title,
+            description,
+        }
+    } = req;
+
+    try{
+        await Video.findOneAndUpdate({_id: id}, {title, description});
+        res.redirect(routes.videos + routes.detail(id));
+    } catch (e) {
+       // TODO Edit Error Dialog
+    }
+
+    res.redirect(routes.videos + routes.detail(id));
 };
 
 export const deleteVideo = (req, res) => {

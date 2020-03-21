@@ -1,4 +1,9 @@
 extends layouts/main
 
 block content
-    p video Edit
+    div.form__container
+        form(action=routes.editVideo(video.id), method="post")
+            label(for="file") Video File
+            input(type="text", name="title", required=true, placeholder="Title", value=video.title)
+            input(type="text", name="description", placeholder="Description", value=video.description)
+            input(type="submit" value="Edit Video")
