@@ -5,7 +5,7 @@ export const home =  async (req, res) => {
     let videos = [];
 
     try{
-        const tmpVideos = await Video.find({});
+        const tmpVideos = await Video.find({}).sort({_id: -1});
         tmpVideos.forEach((video)=>{
             videos.push(video);
         });
