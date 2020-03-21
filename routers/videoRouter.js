@@ -7,7 +7,8 @@ import {
     detail, 
     getEditVideo, 
     postEditVideo,
-    deleteVideo} from "../controllers/videoController";
+    deleteVideo,
+} from "../controllers/videoController";
 import {multerMiddleware} from "../middlewares";
 
 const videoRouter = express.Router();
@@ -18,6 +19,6 @@ videoRouter.post(routes.upload, multerMiddleware, postUpload);
 videoRouter.get(routes.detail(), detail);
 videoRouter.get(routes.editVideo(), getEditVideo);
 videoRouter.post(routes.editVideo(), multerMiddleware, postEditVideo);
-videoRouter.get(routes.deleteVideo, deleteVideo);
+videoRouter.get(routes.deleteVideo(), deleteVideo);
 
 export default videoRouter;

@@ -81,7 +81,7 @@ export const getEditVideo = async (req, res) => {
             video,
         });
     } catch (e) {
-        res.redirect(routes.videos + routes.detail(id));
+        res.redirect(routes.home);
     }
 };
 
@@ -106,8 +106,18 @@ export const postEditVideo = async (req, res) => {
     res.redirect(routes.videos + routes.detail(id));
 };
 
-export const deleteVideo = (req, res) => {
-    res.render("videoDelete", {
-        pageTitle: "Video Delete",
-    });
+export const deleteVideo = async (req, res) => {
+    const { 
+        params: {
+            id,
+        }
+    } = req;
+
+    try{
+        const video = await Video.findOneAndRemove({_id: id});
+    } catch(e) {
+       // TODO Delete Error Dialog
+    }
+
+    res.redirect(routes.home);
 };
