@@ -1,13 +1,27 @@
 import routes from "../routes";
 import Video from "../models/Video";
 
-export const search = (req, res) => {
+export const search = async (req, res) => {
     const {
         query: {
             searchText,
         }   
     } = req;
     
+    let videos = [];
+
+    try{
+        // $options: "i"  means not considering uppercase and lowercase.
+        videos = await Video.find({
+            title: {
+                $regex: searchText,
+                $options: "i",
+            },
+        });
+    } catch(e) {
+        console.log("test");
+    }
+
     res.render("search", {
         pageTitle: "Search", 
         searchText,
