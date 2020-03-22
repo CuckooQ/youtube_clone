@@ -104,3 +104,6 @@ dist
 
 # video files
 videos/
+
+# static folder
+static/
