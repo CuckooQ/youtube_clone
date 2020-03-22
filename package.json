@@ -4,7 +4,8 @@
   "description": "Youtube Clone",
   "main": "init.js",
   "scripts": {
-    "start": "nodemon --exec babel-node init.js delay 2"
+    "dev:server": "nodemon --exec babel-node init.js delay 2",
+    "dev:assets": "webpack"
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,9 @@
     "mongoose": "^5.9.5",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
-    "pug": "^2.0.4"
+    "pug": "^2.0.4",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
