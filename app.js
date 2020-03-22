@@ -17,6 +17,9 @@ const app = express();
 // view engine
 app.set("view engine", "pug");
 
+// static folder
+app.use("/static", express.static("static"));
+
 // middlewares
 app.use(helmetMiddleware);
 app.use(cookieParserMiddleware);

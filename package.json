@@ -4,9 +4,9 @@
   "description": "Youtube Clone",
   "main": "init.js",
   "scripts": {
-    "dev:server": "nodemon --exec babel-node init.js delay 2",
-    "dev:assets": "set WEBPACK_ENV=development&&webpack",
-    "build:assets": "set WEBPACK_ENV=production&&webpack"
+    "dev:server": "nodemon --exec babel-node init.js --delay 2",
+    "dev:assets": "set WEBPACK_ENV=development&&webpack -w",
+    "build:assets": "set WEBPACK_ENV=production&&webpack "
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,9 @@
   "dependencies": {
     "@babel/core": "^7.8.7",
     "@babel/node": "^7.8.7",
+    "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.1.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "css-loader": "^3.4.2",
