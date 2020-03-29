@@ -1,4 +1,5 @@
 import Video from "../models/Video";
+import User from "../models/User";
 import routes from "../routes";
 
 export const home =  async (req, res) => {
@@ -25,7 +26,7 @@ export const getJoin = (req, res) => {
     });
 };
 
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
     const {
         body: {
             name,
@@ -41,8 +42,12 @@ export const postJoin = (req, res) => {
             pageTitle: "Join",
         });
     }else{
-        // TODO Register User
-        // TODO Login
+        const user = await User({
+            name,
+            email,
+        });
+        await User.register(user, password);
+
         res.redirect(routes.home);
     }
 };

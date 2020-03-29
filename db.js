@@ -8,7 +8,7 @@ mongoose.connect(process.env.MONGO_DB_URL, {
     useFindAndModify: false,
 });
 
-const dbConnection =mongoose.connection;
+const dbConnection = mongoose.connection;
 
 const handleOpen = () => {
     console.log("Connected to DB");
