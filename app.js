@@ -11,6 +11,8 @@ import {
     bodyParserUrlEncodeMiddleware,
     morganMiddleware, 
 } from "./middlewares";
+import passport from "passport";
+import "./passport";
 
 const app = express();
 
@@ -26,6 +28,8 @@ app.use(cookieParserMiddleware);
 app.use(bodyParserMiddleware);
 app.use(bodyParserUrlEncodeMiddleware);
 app.use(morganMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(localMiddleware);
 
 // routing

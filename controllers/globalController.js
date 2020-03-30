@@ -1,6 +1,7 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import routes from "../routes";
+import passport from "passport";
 
 export const home =  async (req, res) => {
     let videos = [];
@@ -26,7 +27,7 @@ export const getJoin = (req, res) => {
     });
 };
 
-export const postJoin = async (req, res) => {
+export const postJoin = async (req, res, next) => {
     const {
         body: {
             name,
@@ -42,13 +43,17 @@ export const postJoin = async (req, res) => {
             pageTitle: "Join",
         });
     }else{
-        const user = await User({
-            name,
-            email,
-        });
-        await User.register(user, password);
-
-        res.redirect(routes.home);
+        try{
+            const user = await User({
+                name,
+                email,
+            });
+            await User.register(user, password);
+            next();
+        }
+        catch(e) {
+            res.redirect(routes.home);
+        }   
     }
 };
 
@@ -58,17 +63,10 @@ export const getLogin = (req, res) => {
     });
 };
 
-export const postLogin = (req, res) => {
-    const {
-        body: {
-            email,
-            password,
-        }
-    } = req;
-    
-    // TODO Login
-    res.redirect(routes.home);
-};
+export const postLogin = passport.authenticate("local", {
+    failureRedirect: routes.login,
+    successRedirect: routes.home,
+});
 
 export const logout = (req, res) => {
     // TODO logout
