@@ -13,6 +13,7 @@ import {
 } from "./middlewares";
 import passport from "passport";
 import "./passport";
+import session from "express-session";
 
 const app = express();
 
@@ -28,6 +29,11 @@ app.use(cookieParserMiddleware);
 app.use(bodyParserMiddleware);
 app.use(bodyParserUrlEncodeMiddleware);
 app.use(morganMiddleware);
+app.use(session({
+    secret: process.env.COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: false,
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(localMiddleware);
