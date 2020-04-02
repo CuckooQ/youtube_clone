@@ -30,3 +30,20 @@ const uploadVideoMulter = multer({dest: "videos/"});
 
 // only single file upload available, name: file
 export const multerMiddleware = uploadVideoMulter.single("file");
+
+export const onlyPublic = (req, res, next) => {
+    if(req.user) {
+        res.redirect(routes.home);
+    } else {
+        next();
+    }
+}
+
+export const onlyPrivate = (req, res, next) => {
+    if(req.user) {
+        next();
+    }else{
+        res.redirect(routes.home);
+    }
+    
+}
