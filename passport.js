@@ -2,15 +2,15 @@ import passport from "passport";
 import GithubStrategy from "passport-github";
 import User from "./models/User";
 import { githubLoginCallback } from "./controllers/globalController";
+import routes from "./routes";
 
 passport.use(User.createStrategy());
 passport.use(
     new GithubStrategy({
         clientID: process.env.GITHUB_ID,
         clientSecret: process.env.GITHUB_SECRET,
-        callbackURL: process.env.GITHUB_CALLBACK_URL,
-    }),
-    githubLoginCallback,
+        callbackURL: `http://localhost:${process.env.PORT}${routes.githubCallback}`,
+    }, githubLoginCallback)
 );
 
 passport.serializeUser(User.serializeUser());

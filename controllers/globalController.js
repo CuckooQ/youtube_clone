@@ -68,8 +68,10 @@ export const postLogin = passport.authenticate("local", {
     successRedirect: routes.home,
 });
 
-export const githubLogin = () => {
-    
+export const getGithubLogin = passport.authenticate("github");
+
+export const postGithubLogin = (req, res) => {
+    res.send(routes.home);
 }
 
 export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
@@ -77,6 +79,6 @@ export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
 }
 
 export const logout = (req, res) => {
-    // TODO logout
-    res.redirect(routes.login);
+    req.logout();
+    res.redirect(routes.home);
 };
