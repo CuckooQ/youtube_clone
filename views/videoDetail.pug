@@ -1,20 +1,32 @@
 extends layouts/main
+include mixins/videoPlayer
 
 block content
-    div.video-detail__container
-        div.video__player
-            video(src=`/${video.fileUrl}`)
-        div.video__info
-            a(href=routes.editVideo(video.id))
-                button Edit video
+    .video-detail__container
+        +videoPlayer(video)
+        .video__info
+            if loggedUser && video.uploader.id === loggedUser.id
+                a(href=routes.videoEdit(video.id)) 
+                    button Edit Video
             h5.video__title=video.title
             p.video__description=video.description
             if video.views === 1
                 span.video__views 1 view
             else 
                 span.video__views #{video.views} views
-        div.video__comments
-            if video.comments.length === 1
-                span.video__comment-number 1 comment
+            .video__author
+                |Uploaded by 
+                a(href=routes.userDetail(video.uploader.id))=video.uploader.name
+        .video__comments
+            if comments === undefined || comments.length === 0
+                span.video__comment-number No comments
+            else if comments.length === 1
+                span.video__comment-number 1
             else
-                span.video__comment-number #{video.comments.length} comments 
+                span.video__comment-number#commentNumber #{comments.length}
+            form.add__comment#addComment
+                input(type="text", placeholder="Add a Comment")
+            ul.video__comments-list#commentList
+                each comment in comments.reverse()
+                    li=comment.text
+        

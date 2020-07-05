@@ -1,20 +1,23 @@
 header.header
-    div.header__column
-        i.fab.fa-youtube
-    div.header__column
-        form(action=routes.videos + routes.search, method="get")
-            input(type="text", placeholder="Type the text.", name="searchText")
-    div.header__column
-        ul
-            if !user
-                li
-                    a(href=routes.join) Join
-                li
-                    a(href=routes.login) Login
-            else
-                li 
-                    a(href=routes.videos+routes.upload) Upload
-                li
-                    a(href=routes.users+routes.detail(user.id)) Profile
-                li 
-                    a(href=routes.logout) Logout
+    .header__wrapper
+        .header__column
+            a(href=routes.home)
+                i.fab.fa-youtube
+        .header__column
+            form(method="get", action=routes.search)
+                input(type="text", name="term",placeholder="Search by term...")
+        .header__column
+            ui
+                if loggedUser
+                    li
+                        a(href=routes.videos+routes.videoUpload) Upload
+                    li 
+                        a(href=routes.users + routes.me) Profile
+                    li
+                        a(href=routes.logout) Logout
+                else
+                    li
+                        a(href=routes.join) Join
+                    li
+                        a(href=routes.login) Login 
+

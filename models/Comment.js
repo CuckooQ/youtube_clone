@@ -1,20 +1,26 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const CommentSchema = mongoose.Schema({
-    text: {
-        type: String,
-        required: true,
-    },
-    createTime: {
-        type: Date,
-        default: Date.now,
-    },
-    video: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Video",
-    },
-});
+const CommentScema = mongoose.Schema({
+  text: {
+    type: String,
+    required: true
+  },
+  createDatetime: {
+    type: Date,
+    required: false,
+    default: Date.now
+  },
+  video: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Video',
+    required: true
+  },
+  uploader: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User'
+  }
+})
 
-const model = mongoose.model("Comment", CommentSchema);
+const model = mongoose.model('Comment', CommentScema)
 
-export default model;
+export default model

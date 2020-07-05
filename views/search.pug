@@ -1,11 +1,11 @@
 extends layouts/main
-include mixins/videoBlock
-
+include ./mixins/videoBlock
 block content
-    div.search__header
-        h3 Searching for #{searchText}
-    div.search__videos
+    .search__header
+        h3 Searching for #{term}
+    .search__videos
         if videos.length === 0
-            h5 No Videos 
-        each video in videos
-            +videoBlock(video)
+            h5 Videos Not Found 
+        else
+            each video in videos
+                +videoBlock(video)

@@ -1,53 +1,54 @@
-import express from "express";
-import globalRouter from "./routers/globalRouter";
-import userRouter from "./routers/userRouter";
-import videoRouter from "./routers/videoRouter";
-import routes from "./routes";
-import {
-    localMiddleware, 
-    helmetMiddleware,
-    cookieParserMiddleware,
-    bodyParserMiddleware,
-    bodyParserUrlEncodeMiddleware,
-    morganMiddleware, 
-} from "./middlewares";
-import passport from "passport";
-import "./passport";
-import session from "express-session";
-import MongoStore from "connect-mongo";
-import mongoose from "mongoose";
+import '@babel/polyfill'
+import bodyParser from 'body-parser'
+import connectMongo from 'connect-mongo'
+import cookieParser from 'cookie-parser'
+import express from 'express'
+import flash from 'express-flash'
+import helmet from 'helmet'
+import mongoose from 'mongoose'
+import morgan from 'morgan'
+import passport from 'passport'
+import path from 'path'
+import session from 'express-session'
+import './middlewares/passportMiddleware'
+import localMiddleware from './middlewares/localMiddleware'
+import testMiddleware from './middlewares/testMiddleware'
+import globalRouter from './routers/globalRouter'
+import routes from './routers/routes'
+import userRouter from './routers/userRouter'
+import videoRouter from './routers/videoRouter'
+import apiRouter from './routers/apiRouter'
 
-const app = express();
+const app = express()
 
-const CookieStore = MongoStore(session);
+const CookieStore = connectMongo(session)
 
-// view engine
-app.set("view engine", "pug");
+app.set('view engine', 'pug')
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use('/static', express.static(path.join(__dirname, 'static')))
 
-// static folder
-app.use("/static", express.static("static"));
-
-// middlewares
-app.use(helmetMiddleware);
-app.use(cookieParserMiddleware);
-app.use(bodyParserMiddleware);
-app.use(bodyParserUrlEncodeMiddleware);
-app.use(morganMiddleware);
+app.use(helmet())
+app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(morgan('dev'))
 app.use(session({
-    secret: process.env.COOKIE_SECRET,
-    resave: true,
-    saveUninitialized: false,
-    store: new CookieStore({
-        mongooseConnection: mongoose.connection,
-    })
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(localMiddleware);
+  secret: process.env.COOKIE_SECRET,
+  resave: true,
+  saveUninitialized: false,
+  store: new CookieStore({
+    mongooseConnection: mongoose.connection
+  })
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(flash())
+app.use(testMiddleware)
+app.use(localMiddleware)
 
-// routing
-app.use(routes.home, globalRouter);
-app.use(routes.users, userRouter);
-app.use(routes.videos, videoRouter);
+app.use(routes.home, globalRouter)
+app.use(routes.users, userRouter)
+app.use(routes.videos, videoRouter)
+app.use(routes.api, apiRouter)
 
-export default app;
+export default app

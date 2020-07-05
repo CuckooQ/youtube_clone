@@ -1,5 +1,10 @@
-import "../scss/styles.scss";
+import '../scss/styles.scss'
+import './videoPlayer.js'
+import './videoRecorder.js'
+import './comment'
 
-const something = async () => {
-    console.log("test");
+const handleTest = async () => {
+  console.log('test')
 }
+
+export default handleTest

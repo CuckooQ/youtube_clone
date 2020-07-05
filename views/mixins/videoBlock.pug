@@ -1,9 +1,15 @@
-mixin videoBlock(video = {})
-    div.videoBlock
-        video.videoBlock__thumbnail(src=video.videoFile, controls=false)
-        a(href=routes.videos + routes.detail(video.id))
-            h4.videoBlock__title #{video.title}
+mixin videoBlock(video={})
+    .videoBlock
+        a(href=routes.videoDetail(video.id))
+            video.videoBlock__thumbnail(
+                src=video.fileUrl,
+                controls=false
+            )
+            h4.videoBlock__title=video.title
             if video.views === 1
                 h6.videoBlock__views 1 view
             else
                 h6.videoBlock__views #{video.views} views 
+            p.videoBlock__description=video.description
+        
+    
